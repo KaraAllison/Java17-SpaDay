@@ -1,5 +1,6 @@
 package org.launchcode.controllers;
 
+import org.launchcode.data.UserData;
 import org.launchcode.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,16 @@ public class UserController {
     @PostMapping
     public String processAddUserForm(Model model, @ModelAttribute
     User user, String verify) {
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("email", user.getEmail());
         if (user.getPassword().equals(verify)){
+            UserData.add(user);
+            model.addAttribute("users", UserData.getAll());
             model.addAttribute("welcome", "Welcome, " +
                     user.getUsername() + "!");
             return "user/index";
         } else {
+            model.addAttribute("error", "Passwords must match!");
             return "user/add";
         }
     }
