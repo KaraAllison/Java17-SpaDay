@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>User Details</h1>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Date Joined</th>
+    </tr>
+    <tr>
+        <td th:text="${username}"></td>
+        <td th:text="${email}"></td>
+        <td th:text="${date}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
