@@ -2,18 +2,30 @@ package org.launchcode.models;
 
 public class User {
     private String username;
+    @Email(message = "Must be email format")
     private String email;
+    @NotBlank(message = "Password required")
+    @Size(min=6, message = "Must be at least 6 characters")
     private String password;
+    @NotNull(message = "Passwords do not match")
+    private String verifyPassword;
 
     public User() {
 
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String verifyPassword) {
         this();
         this.username = username;
         this.email = email;
         this.password = password;
+        this.verifyPassword = verifyPassword;
+    }
+
+    private void checkPassword () {
+        if (password != null && !password.equals(verifyPassword)) {
+            verifyPassword = null;
+        }
     }
 
     public String getUsername() {
@@ -38,6 +50,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        checkPassword();
+    }
+
+    public String getVerifyPassword() {
+        return verifyPassword;
+    }
+
+    public void setVerifyPassword(String verifyPassword) {
+        this.verifyPassword = verifyPassword;
+        checkPassword();
     }
 }
 
